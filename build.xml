@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     05/07/2006 19:44:52                                                        
+
+     project    
+     description
+                   
+     Lorena Maia and Rodolfo Nóbrega                                                             
+     ====================================================================== -->
+<project name="seriesSinteticas" default="default">
+    <description>
+            description
+    </description>
+
+	<property name="home" value="." />
+	<property name="source" value="${home}/src" />
+	<property name="lib" value="${home}/lib" />
+	<property name="classes" value="${home}/bin" />
+	<property name="versao" value="3.2.3" />
+	<property name="jar" value="${lib}/sinteticas_${versao}.jar" />
+	
+	<!-- Default -->
+	<target name="default">
+	</target>
+	
+	<!-- Init -->
+	<target name="init">
+		<delete file="*.class"/>
+		<delete dir="${classes}"/>
+		<delete file="${jar}"/>
+		<mkdir dir="${classes}"/>
+		<mkdir dir="${lib}"/>
+	</target>
+	
+	<!-- Compile -->
+	<target name="compile" depends="init">
+		<javac srcdir="${home}" destdir="${classes}" excludes="**/*Test.java"/>
+		<!-- <javadoc /> -->
+	</target>
+	
+	<!-- Cria o .jar -->
+	<target name="criaJar" depends="compile">
+		<jar destfile="${jar}" basedir="${classes}">
+			<manifest>
+				<attribute name="Main-Class" value="gerador.Gerador"/>
+			</manifest>
+			<fileset dir="${home}">
+				<include name="**/*.class"/>
+				<exclude name="*.exe"/>
+			</fileset>
+		</jar>
+	</target>
+ 	
+</project>
